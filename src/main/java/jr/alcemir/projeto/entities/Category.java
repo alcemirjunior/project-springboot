@@ -1,5 +1,6 @@
 package jr.alcemir.projeto.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +22,8 @@ public class Category implements Serializable {
     private Long id;
     private String name;
 
-    @Transient
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private Set<Product> products = new HashSet<>();
 
     public Category(Long id, String name) {

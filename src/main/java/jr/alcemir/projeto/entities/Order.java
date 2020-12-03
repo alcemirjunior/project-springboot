@@ -34,7 +34,8 @@ public class Order implements Serializable {
 
     //@JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id") //na tabela pedido no BD tem uma chave estrangeira
+    // chamada client_id que contem o id do usuario relacionado com esse pedido
     private User client; //declarado aqui pq esta ligado a um cliente
 
 
