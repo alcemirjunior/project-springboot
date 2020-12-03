@@ -13,10 +13,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Builder
+
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -41,12 +38,7 @@ public class Order implements Serializable {
     private User client; //declarado aqui pq esta ligado a um cliente
 
 
-
-
-
-    public Order(){
-
-    }
+    public Order(){}
 
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
