@@ -1,5 +1,6 @@
 package jr.alcemir.projeto.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jr.alcemir.projeto.entities.pk.OrderItemPK;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_order_item")
@@ -19,7 +19,7 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID =1L;
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
 
     private Integer quantity;
     private Double price;
@@ -31,6 +31,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
@@ -45,6 +46,22 @@ public class OrderItem implements Serializable {
 
     public void setProduct(Product product){
         id.setProduct(product);
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @Override

@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -37,6 +39,9 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id") //na tabela pedido no BD tem uma chave estrangeira
     // chamada client_id que contem o id do usuario relacionado com esse pedido
     private User client; //declarado aqui pq esta ligado a um cliente
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
 
     public Order(){}
@@ -84,6 +89,10 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public Set<OrderItem> getItems(){
+        return items;
     }
 
     @Override
