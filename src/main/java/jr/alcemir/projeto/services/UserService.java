@@ -2,8 +2,11 @@ package jr.alcemir.projeto.services;
 
 import jr.alcemir.projeto.entities.User;
 import jr.alcemir.projeto.repositories.UserRepository;
+import jr.alcemir.projeto.services.exceptions.DataBaseException;
 import jr.alcemir.projeto.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -30,7 +33,14 @@ public class UserService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try{
+            repository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+           throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DataBaseException(e.getMessage());
+        }
+
     }
 
     public User update(Long id, User obj){
